@@ -24,12 +24,29 @@ public class NumberExtractorController {
 
     /*Below method accept the Input Message with the required format and return the object with desired output.
       @param - inputMessage - represents the input object      */
-    @PostMapping("/incomingMsg")
-    public ResponseEntity<?> receiveIncomingMsg(@RequestBody InputMessage inputMessage) {
+    @PostMapping("/incomingMsg1")
+    public ResponseEntity<?> receiveIncomingMsg1(@RequestBody InputMessage inputMessage) {
         try {
             if (inputMessage != null) {
                 log.info("Message is : {}", inputMessage);
-                messageList = parserService.parseText(inputMessage.getText());
+                messageList = parserService.parseTextWithRegx(inputMessage.getText());
+            }
+            if (messageList != null)
+                message = new OutputMessage(inputMessage.getId(), messageList);
+        }catch (Exception e){
+            return new ResponseEntity<>("Something went wrong..!",HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    /*Below method accept the Input Message with the required format and return the object with desired output.
+    @param - inputMessage - represents the input object      */
+    @PostMapping("/incomingMsg2")
+    public ResponseEntity<?> receiveIncomingMsg2(@RequestBody InputMessage inputMessage) {
+        try {
+            if (inputMessage != null) {
+                log.info("Message is : {}", inputMessage);
+                messageList = parserService.parseDataWithoutRegx(inputMessage.getText());
             }
             if (messageList != null)
                 message = new OutputMessage(inputMessage.getId(), messageList);

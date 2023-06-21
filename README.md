@@ -3,6 +3,21 @@
 This repository represents the web app to extract numbers from a given string with their position.
 
 
+### Code flow
+
+1. **Controller-:**
+   1. Here we have implemented 2 methods with different implementation logic which return the list of parsed text in specified format
+      + `receiveIncomingMsg1()` - internally uses the Regular expression to parse the text
+        * for this method to invoke use `"/data/incomingMsg1"` REST endpoint.
+  
+      + `receiveIncomingMsg2()` - internally uses the traversing logic to parse the text
+        + for this method to invoke use `"/data/incomingMsg2"` REST endpoint.
+
+2. **Service-:**
+   1. Here also we implemented 2 methods named as below
+      1. `parseTextWithRegx()` - parse the data with regx
+      2. `parseTextWithoutRegx()` - parse the data by iterating over the list
+      
 ### Sample Input
 
 ```
@@ -40,8 +55,3 @@ hours of learning of the violation. In case of violation penanly of $1,000,000 s
     ]
 }
 ```
-
-### Code flow
-
-1. **Controller-:**
-   1. Here we have implemented a *receiveIncomingMsg()* which return the list of parsed text in specified format

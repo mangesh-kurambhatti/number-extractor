@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,25 +22,20 @@ public class MessageParserServiceImplTest {
     String sampleText = "Take immediate action to stop the violation and notify King County Industrial Waste within 24 hours of learning of the violation. In case of violation penalty of $1,000,000 should be paid within 3 months.";
 
     @Test
-    public void testParseText(){
-
-//        Mockito.when(iMessageParserService.parseText("abc")).thenReturn(getParsedData())
-
-        List<ParsedData> list= service.parseText(sampleText);
-
+    public void testParseText() {
+        List<ParsedData> list = service.parseTextWithRegx(sampleText);
         ParsedData extractedNumber1 = list.get(0);
         assertEquals("24", extractedNumber1.getExtractedText());
-        assertEquals(24, extractedNumber1.getExtractedValue());
+        assertEquals(BigDecimal.valueOf(24), extractedNumber1.getExtractedValue());
         assertEquals(91, extractedNumber1.getStartPosition());
         assertEquals(93, extractedNumber1.getEndPosition());
-
     }
-    public List<ParsedData> getParsedData(){
-        List<ParsedData> dataList= new ArrayList<>();
 
-        dataList.add(new ParsedData("24",24,91,93));
-        dataList.add(new ParsedData("1,000,000",1000000,163,172));
-        dataList.add(new ParsedData("3",3,196,197));
+    public List<ParsedData> getParsedData() {
+        List<ParsedData> dataList = new ArrayList<>();
+        dataList.add(new ParsedData("24", new BigDecimal("24"), 91, 93));
+        dataList.add(new ParsedData("1,000,000", new BigDecimal("1000000"), 163, 172));
+        dataList.add(new ParsedData("3", new BigDecimal("3"), 196, 197));
         return dataList;
     }
 }

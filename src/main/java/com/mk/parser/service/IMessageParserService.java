@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface IMessageParserService {
 
-    public List<ParsedData> parseText(String text);
+    public List<ParsedData> parseTextWithRegx(String text);
+    public List<ParsedData> parseDataWithoutRegx(String text);
 }
