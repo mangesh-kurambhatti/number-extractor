@@ -1,5 +1,6 @@
 package com.mk.parser.service.impl;
 
+import com.mk.parser.exception.BusinessException;
 import com.mk.parser.model.ParsedData;
 import com.mk.parser.service.IMessageParserService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +30,9 @@ public class MessageParserServiceImpl implements IMessageParserService {
             String extractedText = matcher.group();
             int startPosition = matcher.start();
             int endPosition = matcher.end();
-            String valueWithoutCommas = extractedText.replace(",", "");
+            //String valueWithoutCommas = extractedText.replace(",", "");
             try {
-                messageList.add(new ParsedData(extractedText, new BigDecimal(valueWithoutCommas), startPosition, endPosition));
+                messageList.add(new ParsedData(extractedText, new BigDecimal(extractedText), startPosition, endPosition));
             } catch (NumberFormatException e) {
                 log.error("Please pass the correct value : {}", e.getMessage());
             } catch (Exception e) {

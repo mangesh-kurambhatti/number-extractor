@@ -1,5 +1,6 @@
 package com.mk.parser.controller;
 
+import com.mk.parser.exception.BusinessException;
 import com.mk.parser.model.InputMessage;
 import com.mk.parser.model.OutputMessage;
 import com.mk.parser.model.ParsedData;
@@ -17,15 +18,15 @@ import java.util.List;
 @Slf4j
 public class NumberExtractorController {
 
-    List<ParsedData> messageList = null;
-    OutputMessage message = null;
     @Autowired
     private IMessageParserService parserService;
 
     /*Below method accept the Input Message with the required format and return the object with desired output.
       @param - inputMessage - represents the input object      */
-    @PostMapping("/incomingMsg1")
-    public ResponseEntity<?> receiveIncomingMsg1(@RequestBody InputMessage inputMessage) {
+    @PostMapping("/regxParsing")
+    public ResponseEntity<?> receiveIncomingMsgForRegxParsing(@RequestBody InputMessage inputMessage) {
+        List<ParsedData> messageList = null;
+        OutputMessage message = null;
         try {
             if (inputMessage != null) {
                 log.info("Message is : {}", inputMessage);
@@ -34,15 +35,17 @@ public class NumberExtractorController {
             if (messageList != null)
                 message = new OutputMessage(inputMessage.getId(), messageList);
         }catch (Exception e){
-            return new ResponseEntity<>("Something went wrong..!",HttpStatus.NOT_FOUND);
+            throw new BusinessException("Something Went Wrong..!");
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     /*Below method accept the Input Message with the required format and return the object with desired output.
     @param - inputMessage - represents the input object      */
-    @PostMapping("/incomingMsg2")
-    public ResponseEntity<?> receiveIncomingMsg2(@RequestBody InputMessage inputMessage) {
+    @PostMapping("/normalParsing")
+    public ResponseEntity<?> receiveIncomingMsgForWithoutRegxParsing(@RequestBody InputMessage inputMessage) {
+        List<ParsedData> messageList = null;
+        OutputMessage message = null;
         try {
             if (inputMessage != null) {
                 log.info("Message is : {}", inputMessage);
@@ -51,7 +54,7 @@ public class NumberExtractorController {
             if (messageList != null)
                 message = new OutputMessage(inputMessage.getId(), messageList);
         }catch (Exception e){
-            return new ResponseEntity<>("Something went wrong..!",HttpStatus.NOT_FOUND);
+            throw new BusinessException("Something Went Wrong..!");
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

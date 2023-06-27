@@ -12,7 +12,7 @@ import java.util.List;
 public class OutputMessage {
 
     private String id;
-    List<ParsedData> dataList;
+    private List<ParsedData> dataList;
 
     public OutputMessage(String id, List<ParsedData> messageList) {
         this.id=id;

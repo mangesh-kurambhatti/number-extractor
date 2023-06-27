@@ -7,11 +7,11 @@ This repository represents the web app to extract numbers from a given string wi
 
 1. **Controller-:**
    1. Here we have implemented 2 methods with different implementation logic which return the list of parsed text in specified format
-      + `receiveIncomingMsg1()` - internally uses the Regular expression to parse the text
-        * for this method to invoke use `"/data/incomingMsg1"` REST endpoint.
+      + `receiveIncomingMsgForRegxParsing()` - internally uses the Regular expression to parse the text
+        * for this method to invoke use `"/data/regxParsing"` REST endpoint.
   
-      + `receiveIncomingMsg2()` - internally uses the traversing logic to parse the text
-        + for this method to invoke use `"/data/incomingMsg2"` REST endpoint.
+      + `receiveIncomingMsgForWithoutRegxParsing()` - internally uses the traversing logic to parse the text
+        + for this method to invoke use `"/data/normalParsing"` REST endpoint.
 
 2. **Service-:**
    1. Here also we implemented 2 methods named as below
